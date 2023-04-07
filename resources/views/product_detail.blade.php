@@ -43,17 +43,18 @@
                     </ul>
                 </div>
                 <div class="product-attribute">
-                    <h3 class="title">Organic Sweet Potatoes</h3>
+                    <h3 class="title">{{$product->name}}</h3>
                     <div class="rating">
                         <p class="star-rating"><span class="width-80percent"></span></p>
                         <span class="review-count">(04 Reviews)</span>
                         <span class="qa-text">Q&amp;A</span>
-                        <b class="category">By: Natural food</b>
+                        <b class="category">Cat: {{$product->category->name}}</b>
                     </div>
                     <span class="sku">Sku: #76584HH</span>
-                    <p class="excerpt">Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum porta. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Cras ultricies ligula sed magna dictum porta. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.</p>
+                    <p class="excerpt">{{$product->description}}</p>
                     <div class="price">
-                        <ins><span class="price-amount"><span class="currencySymbol">£</span>85.00</span></ins>
+                        <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price_cost}}</span></ins>
+                        <del><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></del>
                     </div>
                     <div class="shipping-info">
                         <p class="shipping-day">3-Day Shipping</p>

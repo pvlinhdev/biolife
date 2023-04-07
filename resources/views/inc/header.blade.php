@@ -44,7 +44,7 @@
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                     <div class="primary-menu">
                     <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
-                        <li class="menu-item"><a href="index-2.html">Home</a></li>
+                        <li class="menu-item"><a href="{{ route('index') }}">Home</a></li>
                         <li class="menu-item menu-item-has-children has-megamenu">
                             <a href="#" class="menu-name" data-title="Shop" >Shop</a>
                             <div class="wrap-megamenu lg-width-900 md-width-750">
@@ -101,34 +101,11 @@
                             </div>
                         </li>
                         <li class="menu-item menu-item-has-children has-child">
-                            <a href="#" class="menu-name" data-title="Products">Products</a>
+                            <a href="{{ route('product') }}" class="menu-name" data-title="Products">Products</a>
                             <ul class="sub-menu">
-                                <li class="menu-item"><a href="#">Omelettes</a></li>
-                                <li class="menu-item"><a href="#">Breakfast Scrambles</a></li>
-                                <li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Eggs & other considerations">Eggs & other considerations</a>
-                                    <ul class="sub-menu">
-                                        <li class="menu-item"><a href="#">Classic Breakfast</a></li>
-                                        <li class="menu-item"><a href="#">Huevos Rancheros</a></li>
-                                        <li class="menu-item"><a href="#">Everything Egg Sandwich</a></li>
-                                        <li class="menu-item"><a href="#">Egg Sandwich</a></li>
-                                        <li class="menu-item"><a href="#">Vegan Burrito</a></li>
-                                        <li class="menu-item"><a href="#">Biscuits and Gravy</a></li>
-                                        <li class="menu-item"><a href="#">Bacon Avo Egg Sandwich</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item"><a href="#">Griddle</a></li>
-                                <li class="menu-item menu-item-has-children has-child"><a href="#" class="menu-name" data-title="Sides & Extras">Sides & Extras</a>
-                                    <ul class="sub-menu">
-                                        <li class="menu-item"><a href="#">Breakfast Burrito</a></li>
-                                        <li class="menu-item"><a href="#">Crab Cake Benedict</a></li>
-                                        <li class="menu-item"><a href="#">Corned Beef Hash</a></li>
-                                        <li class="menu-item"><a href="#">Steak & Eggs</a></li>
-                                        <li class="menu-item"><a href="#">Oatmeal</a></li>
-                                        <li class="menu-item"><a href="#">Fruit & Yogurt Parfait</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item"><a href="#">Biscuits</a></li>
-                                <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
+                                @foreach ($categoryList as $category)
+                                <li class="menu-item"><a href="{{ route('category_detail', $category->slug) }}">{{$category->name}}</a></li>
+                                @endforeach
                             </ul>
                         </li>
                         <li class="menu-item menu-item-has-children has-megamenu">

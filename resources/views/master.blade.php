@@ -24,7 +24,7 @@
 </head>
 <body class="biolife-body">
     <!-- Preloader -->
-    <div id="biof-loading">
+    {{-- <div id="biof-loading">
         <div class="biof-loading-center">
             <div class="biof-loading-center-absolute">
                 <div class="dot dot-one"></div>
@@ -32,7 +32,7 @@
                 <div class="dot dot-three"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     <!-- HEADER -->
     @include('./inc/header')
