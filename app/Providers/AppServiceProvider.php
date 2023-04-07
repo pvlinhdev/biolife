@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use Exception;
+// use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // hiển chị category lên tất cả các trang
+        try{
+            $categoryList = Category::all();
+            View::share('categoryList', $categoryList);
+        }catch(Exception $ex){}
     }
 }

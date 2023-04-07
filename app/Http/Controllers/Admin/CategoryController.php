@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Services\Category\Actions\CreateCategoryAction;
 use App\Services\Category\Actions\DeleteCategoryAction;
 use App\Services\Category\Actions\ShowCategoryAction;
 use App\Services\Category\Actions\UpdateCategoryAction;
@@ -27,15 +28,19 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categoryList = resolve(ShowCategoryAction::class)->run();
+        return view('admin.category.index', array('categoryList' => $categoryList));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        $category = resolve(CreateCategoryAction::class)->create($request->all());
+        // $category->addMediaFromRequest('image')->usingName($category->name)->toMediaCollection('categories_images');
+        $request->session()->flash('status', 'Thêm thành công');
+        return redirect()->route('admin.category.index');
     }
 
     /**
