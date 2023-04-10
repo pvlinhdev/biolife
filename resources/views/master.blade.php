@@ -211,6 +211,8 @@
     <script src="{{ asset('./assets/js/slick.min.js') }}"></script>
     <script src="{{ asset('./assets/js/biolife.framework.js') }}"></script>
     <script src="{{ asset('./assets/js/functions.js') }}"></script>
+    @yield('script')
+
 </body>
 
 </html>
