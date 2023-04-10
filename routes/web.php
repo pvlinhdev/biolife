@@ -51,3 +51,6 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::post('/category', [CategoryController::class, 'store'])->name('admin.category.store');
 
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
