@@ -267,8 +267,8 @@
                                         <b class="categories">{{$product->category->name}}</b>
                                         <h4 class="product-title"><a href="{{ route('product_detail', $product->slug) }}" class="pr-name">{{$product->name}}</a></h4>
                                         <div class="price">
-                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price_cost}}</span></ins>
-                                            <del><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></del>
+                                            <ins><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price}}</span></ins>
+                                            <del><span class="price-amount"><span class="currencySymbol">£</span>{{$product->price_cost}}</span></del>
                                         </div>
                                         <div class="shipping-info">
                                             <p class="shipping-day">3-Day Shipping</p>

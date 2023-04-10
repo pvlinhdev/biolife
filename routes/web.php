@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +29,9 @@ Route::get('blog', function () {
 Route::get('/show-blog', function () {
     return view('blogDetail');
 });
-Route::get('/cart', function () {
-    return view('cart');
-});
+// Route::get('/cart', function () {
+//     return view('cart');
+// });
 
 Route::group(['prefix'=>'/admin'],function(){
 
@@ -51,6 +53,25 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::post('/category', [CategoryController::class, 'store'])->name('admin.category.store');
 
 });
+
 Auth::routes();
 
+/**
+ * cart
+ */
+
+Route::group(['middleware' => ['auth']], function(){
+    Route::post('product/add-to-cart',[CartController::class, 'addToCart'])->name('addToCart');
+    Route::get('cart', [CartController::class, 'viewCart'])->name('cart');
+    Route::get('update-cart', [CartController::class, 'updateCart'])->name('update_cart');
+    // Route::post('cart/delete', [CartController::class, 'deleteOrderDetail'])->name('cart.delete');
+    // Route::post('cart/update', [CartController::class, 'updateOrderDetail'])->name('cart.update');
+    // Route::get('cart/create',[CartController::class, 'create'])->name('cart.create');
+    // Route::post('/cart', [CartController::class, 'store'])->name('cart.store');
+
+    Route::get('/cart-empty', function () {
+        return view('cart-empty');
+    });
+  });
+  
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
