@@ -30,7 +30,24 @@
                             <option value="jp">Japan (JPY)</option>
                         </select>
                     </li>
-                    <li><a href="login.html" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
+                    @guest
+                    <li>
+                        <a href="{{ route('login') }}" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a>
+                    </li>
+                    @else
+                    <li>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }} /   
+                        </a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                    @endguest
                 </ul>
             </div>
         </div>
