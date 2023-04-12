@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 use App\Services\Category\Actions\CreateCategoryAction;
 use App\Services\Category\Actions\DeleteCategoryAction;
 use App\Services\Category\Actions\ShowCategoryAction;
@@ -28,19 +29,21 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categoryList = resolve(ShowCategoryAction::class)->run();
-        return view('admin.category.index', array('categoryList' => $categoryList));
+        return view('admin.category.index');
     }
 
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(CategoryRequest $request)
+    // {
+    //     $category = resolve(CreateCategoryAction::class)->create($request->all());
+    //     return redirect()->route('admin.category.index');
+    // }
     public function store(CategoryRequest $request)
     {
         $category = resolve(CreateCategoryAction::class)->create($request->all());
-        // $category->addMediaFromRequest('image')->usingName($category->name)->toMediaCollection('categories_images');
-        $request->session()->flash('status', 'Thêm thành công');
-        return redirect()->route('admin.category.index');
+        return response()->json(['status' => 'success']);
     }
 
     /**
@@ -70,14 +73,19 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+    // public function destroy($id, Request $request)
+    // {
+    //     resolve(DeleteCategoryAction::class)->delete($id);
+    //     return response()->json(['status' => 'success']);
+    // }
     public function destroy($id, Request $request)
-    {
-        $bool = resolve(DeleteCategoryAction::class)->delete($id);
-        if ($bool)
-            $request->session()->flash('status', 'xóa thanh cong');
-        else
-            $request->session()->flash('status', 'xóa that bai');
-
-        return redirect()->route('admin.category.index');
+{
+    try {
+        $category = resolve(DeleteCategoryAction::class)->delete($id);
+        return response()->json(['status' => 'success']);
+    } catch (\Exception $e) {
+        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
     }
+}
+    
 }

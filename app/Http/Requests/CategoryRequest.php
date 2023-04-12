@@ -26,8 +26,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5|max:15',
-            'description' => 'required|min:10|max:1000'
+            'name' => 'required|min:1|max:128',
+            'description' => 'required|min:0|max:1208'
         ];
     }
 
@@ -40,12 +40,11 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'Name phai co',
-            'name.min' => 'Do dai phai hon 5 ky tu',
-            'name.max' => 'Do dai phai be hon 15 ky tu',
+            'name.min' => 'Do dai phai hon 1 ky tu',
+            'name.max' => 'Do dai phai be hon 128 ky tu',
             'description.required' => 'Phai co mo ta',
-            'description.min' => 'Do dai phai lon hon 10 ky tu',
-            'description.max' => 'Do dai phai be hon 1000 ky tu',
-
+            'description.min' => 'Phải có kí tự',
+            'description.max' => 'Do dai phai be hon 1028 ky tu',
         ];
     }
 }
