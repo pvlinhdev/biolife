@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -38,11 +39,8 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
-
+// admin category
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category.index');
-    // Route::get('/category/create', function () {
-    //     return view('admin.category.create');
-    // });
 
     Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('admin.category.edit');
     Route::put('/category/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
@@ -51,6 +49,16 @@ Route::group(['prefix'=>'/admin'],function(){
 
     Route::get('/category/create', [CategoryController::class, 'create'])->name('admin.category.create');
     Route::post('/category', [CategoryController::class, 'store'])->name('admin.category.store');
+// admin product
+    Route::get('/product', [ProductController::class, 'index'])->name('admin.product.index');
+
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit'])->name('admin.product.edit');
+    Route::put('/product/{id}', [ProductController::class, 'update'])->name('admin.product.update');
+    
+    Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('admin.product.destroy');
+
+    Route::get('/product/create', [ProductController::class, 'create'])->name('admin.product.create');
+    Route::post('/product', [ProductController::class, 'store'])->name('admin.product.store');
 
 });
 

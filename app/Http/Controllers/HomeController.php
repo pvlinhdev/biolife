@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Services\Category\Actions\ShowCategoryAction;
 use App\Services\Product\Actions\ShowProductAction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -16,22 +18,26 @@ class HomeController extends Controller
     {
         return view("index");
     }
-
+    protected function getRelatedProducts($category_id, $slug)
+{
+    return Product::where('category_id', $category_id)
+        ->where('slug', '<>', $slug)
+        ->inRandomOrder()
+        ->limit(6)
+        ->get();
+}
     public function show_product(){
         $productList = resolve(ShowProductAction::class)->run();
-        return view("product", array("productList" => $productList));
+        return view("product", compact('productList'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function product_detail($slug){
         $product = resolve(ShowProductAction::class)->getProductBySlug($slug);
-        // $productList = resolve(ShowProductAction::class)->run();
-
-        return view("product_detail", array(
-            "product" => $product,
-            // "productList" => $productList,
-        ));
+        $relatedProducts = $this->getRelatedProducts($product->category_id, $product->slug);
+        // dd($relatedProducts);
+        return view("product_detail", compact('product','relatedProducts'));
     }
     public function category_detail(Request $request, $slug)
     {

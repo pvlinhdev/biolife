@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Product;
+use App\Services\Product\Actions\CreateProductAction;
+use App\Services\Product\Actions\ShowProductAction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -10,9 +14,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $productList = resolve(ShowProductAction::class)->run();
+        return view('admin.product.index',compact('productList'));
     }
 
     /**
@@ -20,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
@@ -28,7 +33,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $product = resolve(CreateProductAction::class)->create($request->all());
+        return redirect()->route('admin.product.index');
     }
 
     /**

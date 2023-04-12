@@ -17,7 +17,7 @@ return new class extends Migration
             $table->String('status', 128); 
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->unsignedBigInteger('receivership_id');
+            $table->unsignedBigInteger('receivership_id')->nullable();;
             $table->foreign('receivership_id')->references('id')->on('receivership');
             $table->unsignedBigInteger('voucher_id')->nullable();
             $table->foreign('voucher_id')->references('id')->on('vouchers');

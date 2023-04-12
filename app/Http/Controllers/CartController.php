@@ -15,10 +15,10 @@ class CartController extends Controller
         if ($order == null) {
             $order = Order::create(
                 array(
-                    'code' => 'test',
+                    'code' => randomOrderCode(),
                     'user_id' => Auth::user()->id,
                     'status' => 'order',
-                    'receivership_id' => '1'
+                    // 'receivership_id' => '1'
                 )
             );
         }
