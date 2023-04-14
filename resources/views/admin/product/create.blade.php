@@ -12,8 +12,8 @@
                 <small class="text-muted float-end">Default label</small>
             </div>
             <div class="card-body row">
-                <form method="POST" action="{{ route('admin.product.store') }}" enctype="multipart/form-data" data-parsley-validate >
-                        {{-- id="create-product-form"> --}}
+                <form method="POST" action="{{ route('admin.product.store') }}" enctype="multipart/form-data" data-parsley-validate 
+                     >   {{-- id="create-product-form"> --}}
                     @csrf
                     <div class="mb-3 {{ $errors->has('name') ? 'has-error' : ''}}">
                         <label class="form-label" for="basic-default-fullname">Product Name</label>
@@ -61,7 +61,7 @@
                     
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-phone">Iamge</label>
-                        <input type="file" name="image" id="basic-default-phone" class="form-control phone-mask"/>
+                        <input type="file" name="file_upload" id="basic-default-phone" class="form-control phone-mask"/>
                     </div>
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-phone">Category</label>

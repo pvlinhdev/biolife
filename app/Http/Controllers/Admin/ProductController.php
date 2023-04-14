@@ -7,6 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\Product\Actions\CreateProductAction;
 use App\Services\Product\Actions\ShowProductAction;
+use App\Services\Product\Actions\UpdateProductAction;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -33,8 +34,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // xử lý ảnh
+        if($request->has('file_upload')){
+            $file = $request->file_upload;
+            $ext = $request->file_upload->extension();
+            $file_name = time().'-'.'product.'.$ext;
+            $file->move(public_path('uploads/products'),$file_name);
+            $request->merge(['image' => $file_name ]);
+        }
         $product = resolve(CreateProductAction::class)->create($request->all());
+        // return response()->json(['status' => 'success']);
         return redirect()->route('admin.product.index');
     }
 
@@ -49,17 +58,26 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        // $product = resolve(ShowProductAction::class)->find($id);
+        return view('admin.product.edit', compact('product'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // xử lý ảnh
+        if($request->has('file_upload')){
+            $file = $request->file_upload;
+            $ext = $request->file_upload->extension();
+            $file_name = time().'-'.'product.'.$ext;
+            $file->move(public_path('uploads/products'),$file_name);
+            $request->merge(['image' => $file_name ]);
+        }
+        $product = resolve(UpdateProductAction::class)->update($id, $request->all());
+        // return redirect()->route('admin.category.index');
+        return response()->json(['status' => 'success']);
     }
 
     /**

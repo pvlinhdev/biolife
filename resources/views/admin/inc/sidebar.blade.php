@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-      <a href="index.html" class="app-brand-link">
+      <a href="{{ route('admin.dashboard') }}" class="app-brand-link">
         <span class="app-brand-logo demo">
           <svg
             width="25"
@@ -111,6 +111,35 @@
         </ul>
       </li>
 
+      <li class="menu-header small text-uppercase">
+        <span class="menu-header-text">Pages</span>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div data-i18n="Account Settings">Category</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('admin.category.index')}}" class="menu-link">
+              <div data-i18n="Account">Index</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="menu-item">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div data-i18n="Account Settings">Product</div>
+        </a>
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('admin.product.index')}}" class="menu-link">
+              <div data-i18n="Account">Index</div>
+            </a>
+          </li>
+        </ul>
+      </li>
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Pages</span>
       </li>

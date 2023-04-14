@@ -12,7 +12,7 @@
                     <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data" id="update-category-form">
                         @method('put')
                         @csrf
                         <div class="mb-3">
@@ -33,4 +33,26 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+    $('#update-category-form').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+                alert('Cập nhật danh mục thành công');
+                window.location.href = '{{ route("admin.category.index") }}';
+            },
+            error: function(response) {
+                alert('Cập nhật danh mục thất bại. Vui lòng thử lại sau.');
+            }
+        });
+    });
+});
+</script>
+    
 @endsection

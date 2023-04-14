@@ -5449,11 +5449,11 @@ body.open-overlay #overlay{
     display: block;
     margin: 0 0 5px;
 }
-.login-on-checkout .form-row input[type=email]{
+.login-on-checkout .form-row input{
     font-size: 15px;
     color: #222222;
     line-height: 30px;
-    max-width: 320px;
+    max-width: 100%;
     width: 100%;
     display: inline-block;
     padding: 7px 14px 6px;

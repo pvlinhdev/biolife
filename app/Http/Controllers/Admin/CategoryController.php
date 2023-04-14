@@ -67,25 +67,17 @@ class CategoryController extends Controller
     {
         $category = resolve(UpdateCategoryAction::class)->update($id, $request->all());
         // resolve(UpdateCategoryAction::class)->updateCategoryMedia($category, $request);
-        return redirect()->route('admin.category.index');
+        // return redirect()->route('admin.category.index');
+        return response()->json(['status' => 'success']);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    // public function destroy($id, Request $request)
-    // {
-    //     resolve(DeleteCategoryAction::class)->delete($id);
-    //     return response()->json(['status' => 'success']);
-    // }
     public function destroy($id, Request $request)
-{
-    try {
+    {
         $category = resolve(DeleteCategoryAction::class)->delete($id);
         return response()->json(['status' => 'success']);
-    } catch (\Exception $e) {
-        return response()->json(['status' => 'error', 'message' => $e->getMessage()]);
     }
-}
     
 }

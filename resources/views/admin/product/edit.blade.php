@@ -12,20 +12,55 @@
                     <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data">
+                    <form method="post" action="{{ route('admin.product.update', $product->id) }}" enctype="multipart/form-data" 
+                        id="#update-product-form">
                         @method('put')
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">Category Name</label>
-                            <input type="text" class="form-control" name="name" id="basic-default-fullname" value="{{ $category->name }}" />
+                            <label class="form-label" for="basic-default-fullname">Product Name</label>
+                            <input type="text" class="form-control" name="name" id="basic-default-fullname" value="{{ $product->name }}" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-company">Description</label>
-                            <textarea type="text" class="form-control" name="description" id="basic-default-company">{{ $category->description }}</textarea>
+                            <textarea type="text" class="form-control" name="description" id="basic-default-company">{{ $product->description }}</textarea>
                         </div>
+                        <div class="row">
+                            <div class="mb-3 col-lg-4">
+                                <label class="form-label" for="basic-default-company">Quantity</label>
+                                <input type="number" class="form-control" minlength="1" required maxlength="100" name="quantity" id="basic-default-company" value="{{ $product->quantity }}">
+                                
+                            </div>
+                            <div class="mb-3 col-lg-4">
+                                <label class="form-label" for="basic-default-company">Price Product</label>
+                                <input type="number"  minlength="0" maxlength="" required class="form-control" name="price" id="basic-default-company" value="{{ $product->price }}">
+                            </div>
+                            <div class="mb-3 col-lg-4 ">
+                                <label class="form-label" for="basic-default-company">Price Product</label>
+                                <input type="number"  minlength="0" maxlength="" required class="form-control" name="price_cost" id="basic-default-company" value="{{ $product->price_cost }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-lg-6 ">
+                                <label class="form-label" for="basic-default-company">sold</label>
+                                <input type="number"  minlength="0" maxlength=""  class="form-control" name="sold" id="basic-default-company" value="{{ $product->sold }}">
+                            </div>
+                            <div class="mb-3 col-lg-6 ">
+                                <label class="form-label" for="basic-default-company">views</label>
+                                <input type="number"  minlength="0" maxlength="" class="form-control" name="views" id="basic-default-company" value="{{ $product->views }}">
+                            </div>
+                        </div>
+                        
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-phone">Iamge</label>
-                            <input type="file" id="basic-default-phone" class="form-control phone-mask"/>
+                            <input type="file" name="file_upload" id="basic-default-phone" class="form-control phone-mask" value="{{ $product->image }}"/>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-phone">Category</label>
+                            <select class="form-control" name="category_id" value="{{ $product->category_id }}" >
+                                @foreach($categoryList as $cat)
+                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
@@ -33,4 +68,26 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+<script>
+    $(document).ready(function() {
+    $('#update-product-form').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: $(this).serialize(),
+            success: function(response) {
+                alert('Cập nhật sản phẩm thành công');
+                window.location.href = '{{ route("admin.product.index") }}';
+            },
+            error: function(response) {
+                alert('Cập nhật sản phẩm thất bại. Vui lòng thử lại sau.');
+            }
+        });
+    });
+});
+</script>
+    
 @endsection
