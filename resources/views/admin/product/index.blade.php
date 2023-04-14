@@ -20,10 +20,10 @@
             <h5 class="card-header">
                 <div class="" style="text-align: right">
                     {{-- <small class="text-light fw-semibold">Category</small> --}}
-                    <div class="">
+                    <div class="buttoncreate">
                         <!-- Button trigger modal -->
                         <a href="{{ route('admin.product.create') }}">
-                            <button type="button">
+                            <button type="button"  class="btn btn-primary">
                                 Create Productt
                             </button>
                         </a>
@@ -48,7 +48,7 @@
                         @foreach ($productList as $pro)
                             <tr>
                                 <td>
-                                    img
+                                    <img src="{{ asset('uploads/products/' . $pro->image) }}" width="100" height="100" alt="img-{{$pro->name}}">
                                 </td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $pro->name }}</strong>
@@ -65,17 +65,15 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <a class="dropdown-item"
-                                                href="{{ route('admin.category.edit', $pro->id) }}"><i
+                                                href="{{ route('admin.product.edit', $pro->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
                                             <form method="post"
                                                 action="{{ route('admin.category.destroy', $pro->id) }}">
                                                 @method('delete')
                                                 @csrf
-
                                                 <a class="dropdown-item"><i class="bx bx-trash me-1"></i>
                                                     <button type="submit" class="btn">Delete</button></a>
-
                                             </form>
                                         </div>
                                     </div>
@@ -88,7 +86,6 @@
         </div>
         <!--/ Hoverable Table rows -->
     </div>
-
 @endsection
 @section('script')
     <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

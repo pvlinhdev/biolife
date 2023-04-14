@@ -23,6 +23,9 @@ Route::get('/product', [HomeController::class, 'show_product'])->name('product')
 Route::get('/product-detail/{slug}', [HomeController::class, 'product_detail'])->name('product_detail');
 Route::get('/category/{slug}', [HomeController::class, 'category_detail'])->name('category_detail');
 
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::post('/checkout', [CartController::class, 'store'])->name('checkout.store');
+
 
 Route::get('blog', function () {
     return view('blog');
@@ -30,15 +33,12 @@ Route::get('blog', function () {
 Route::get('/show-blog', function () {
     return view('blogDetail');
 });
-// Route::get('/cart', function () {
-//     return view('cart');
-// });
+
 
 Route::group(['prefix'=>'/admin'],function(){
 
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard');
+    
 // admin category
     Route::get('/category', [CategoryController::class, 'index'])->name('admin.category.index');
 

@@ -18,26 +18,35 @@ class HomeController extends Controller
     {
         return view("index");
     }
+    
+    public function admin()
+    {
+        return view("admin.dashboard");
+    }
     protected function getRelatedProducts($category_id, $slug)
-{
-    return Product::where('category_id', $category_id)
-        ->where('slug', '<>', $slug)
-        ->inRandomOrder()
-        ->limit(6)
-        ->get();
-}
-    public function show_product(){
+    {
+        return Product::where('category_id', $category_id)
+            ->where('slug', '<>', $slug)
+            ->inRandomOrder()
+            ->limit(6)
+            ->get();
+    }
+    public function show_product()
+    {
         $productList = resolve(ShowProductAction::class)->run();
         return view("product", compact('productList'));
     }
     /**
      * Show the form for creating a new resource.
      */
-    public function product_detail($slug){
+    public function product_detail($slug)
+    {
         $product = resolve(ShowProductAction::class)->getProductBySlug($slug);
+        $product->views += 1;
+        $product->save();
         $relatedProducts = $this->getRelatedProducts($product->category_id, $product->slug);
-        // dd($relatedProducts);
-        return view("product_detail", compact('product','relatedProducts'));
+        dd($relatedProducts);
+        return view("product_detail", compact('product', 'relatedProducts'));
     }
     public function category_detail(Request $request, $slug)
     {

@@ -30,28 +30,28 @@
                         <div class="media">
                             <ul class="biolife-carousel slider-for"
                                 data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                <li><img src="assets/images/details-product/p01.jpg" alt="" width="500"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
                                         height="500"></li>
-                                <li><img src="assets/images/details-product/p02.jpg" alt="" width="500"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}"alt="" width="500"
                                         height="500"></li>
-                                <li><img src="assets/images/details-product/p03.jpg" alt="" width="500"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
                                         height="500"></li>
-                                <li><img src="assets/images/details-product/p06.jpg" alt="" width="500"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
                                         height="500"></li>
-                                <li><img src="assets/images/details-product/p07.jpg" alt="" width="500"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
                                         height="500"></li>
                             </ul>
                             <ul class="biolife-carousel slider-nav"
                                 data-slick='{"arrows":false,"dots":false,"centerMode":false,"focusOnSelect":true,"slidesMargin":10,"slidesToShow":4,"slidesToScroll":1,"asNavFor":".slider-for"}'>
-                                <li><img src="assets/images/details-product/thumb_p01.jpg" alt="" width="88"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
                                         height="88"></li>
-                                <li><img src="assets/images/details-product/thumb_p02.jpg" alt="" width="88"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
                                         height="88"></li>
-                                <li><img src="assets/images/details-product/thumb_p03.jpg" alt="" width="88"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
                                         height="88"></li>
-                                <li><img src="assets/images/details-product/thumb_p06.jpg" alt="" width="88"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
                                         height="88"></li>
-                                <li><img src="assets/images/details-product/thumb_p07.jpg" alt="" width="88"
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
                                         height="88"></li>
                             </ul>
                         </div>
@@ -499,7 +499,7 @@
                                 <div class="contain-product layout-default">
                                     <div class="product-thumb">
                                         <a href="#" class="link-to-product">
-                                            <img src="assets/images/products/p-13.jpg" alt="dd" width="270"
+                                            <img src="{{ asset('uploads/products/' . $relatedProducts->image) }}" alt="dd" width="270"
                                                 height="270" class="product-thumnail">
                                         </a>
                                     </div>

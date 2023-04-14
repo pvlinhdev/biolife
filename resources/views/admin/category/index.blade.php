@@ -99,12 +99,11 @@
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
                                             <form method="post" action="{{ route('admin.category.destroy', $cat->id) }}"
-                                                class="delete-category-btn">
+                                                id="delete-category-btn">
                                                 @method('delete')
                                                 @csrf
-                                                <a href="{{ route('admin.category.destroy', $cat->id) }}" class="dropdown-item"><i class="bx bx-trash me-1"></i>
-                                                <button type="submit"> Delete</button>  </a>
-
+                                                <a href="javascript:;" class="dropdown-item"><i class="bx bx-trash me-1"></i>
+                                                Delete </a>
                                             </form>
                                         </div>
                                     </div>
@@ -119,6 +118,7 @@
     </div>
 @endsection
 @section('script')
+{{-- create --}}
 <script>
     $(document).ready(function() {
     $('#create-category-form').submit(function(event) {
@@ -138,9 +138,10 @@
     });
 });
 </script>
+{{-- delete --}}
 <script>
     $(document).ready(function() {
-    $('.delete-category-btn').submit(function(event) {
+    $('#delete-category-btn').a(function(event) {
         event.preventDefault();
         var url = $(this).attr('action');
         if (confirm('Bạn có chắc chắn muốn xoá danh mục này không?')) {

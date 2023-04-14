@@ -73,7 +73,7 @@
                                         <tr class="cart_item">
                                             <td class="product-thumbnail" data-title="Product Name">
                                                 <a class="prd-thumb" href="#">
-                                                    <figure><img width="113" height="113" src="assets/images/shippingcart/pr-01.jpg" alt="shipping cart"></figure>
+                                                    <figure><img width="113" height="113" src="{{ asset('uploads/products/' . $orderDetail->product->image) }}" alt="shipping cart"></figure>
                                                 </a>
                                                 <a class="prd-name" href="#">{{ $orderDetail->product->name }}</a>
                                                 <div class="action">

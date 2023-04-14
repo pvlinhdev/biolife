@@ -260,7 +260,7 @@
                                 <div class="contain-product layout-default">
                                     <div class="product-thumb">
                                         <a href="#" class="link-to-product">
-                                            <img src="assets/images/products/p-11.jpg" alt="dd" width="270" height="270" class="product-thumnail">
+                                            <img src="{{ asset('uploads/products/' . $product->image) }}" alt="dd" width="270" height="270" class="product-thumnail">
                                         </a>
                                     </div>
                                     <div class="info">
