@@ -74,10 +74,20 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id, Request $request)
+    // public function destroy($id, Request $request)
+    // {
+    //     $category = resolve(DeleteCategoryAction::class)->delete($id);
+    //     return response()->json(['success' => true]);
+    //             // return response()->json(['status' => 'success']);
+    // }
+    public function destroy($id)
     {
-        $category = resolve(DeleteCategoryAction::class)->delete($id);
-        return response()->json(['status' => 'success']);
+        $category = Category::find($id);
+        if ($category) {
+            $category->delete();
+            return response()->json(['success' => 'Đã xoá danh mục thành công!']);
+        } else {
+            return response()->json(['error' => 'Không tìm thấy danh mục!']);
+        }
     }
-    
 }

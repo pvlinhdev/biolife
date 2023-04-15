@@ -56,7 +56,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                    <a href="index-2.html" class="biolife-logo"><img src="assets/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
+                    <a href="{{route('home')}}" class="biolife-logo"><img src="assets/images/organic-3.png" alt="biolife logo" width="135" height="34"></a>
                 </div>
                 <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                     <div class="primary-menu">
@@ -269,12 +269,12 @@
                 <div class="col-lg-3 col-md-3 col-md-6 col-xs-6">
                     <div class="biolife-cart-info">
                         <div class="mobile-search">
-                            <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a>
+                            {{-- <a href="javascript:void(0)" class="open-searchbox"><i class="biolife-icon icon-search"></i></a> --}}
                             <div class="mobile-search-content">
-                                <form action="#" class="form-search" name="mobile-seacrh" method="get">
-                                    <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a>
-                                    <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
-                                    <select name="category">
+                                <form action="{{ route('search') }}" method="GET" class="form-search" name="mobile-seacrh" >
+                                    {{-- <a href="#" class="btn-close"><span class="biolife-icon icon-close-menu"></span></a> --}}
+                                    <input type="text"  class="input-text" value="" placeholder="Search here...">
+                                    {{-- <select name="category">
                                         <option value="-1" selected>All Categories</option>
                                         <option value="vegetables">Vegetables</option>
                                         <option value="fresh_berries">Fresh Berries</option>
@@ -285,7 +285,7 @@
                                         <option value="fresh_onion">Fresh Onion</option>
                                         <option value="papaya_crisps">Papaya & Crisps</option>
                                         <option value="oatmeal">Oatmeal</option>
-                                    </select>
+                                    </select> --}}
                                     <button type="submit" class="btn-submit">go</button>
                                 </form>
                             </div>
@@ -713,8 +713,8 @@
                 </div>
                 <div class="col-lg-9 col-md-8 padding-top-2px">
                     <div class="header-search-bar layout-01">
-                        <form action="#" class="form-search" name="desktop-seacrh" method="get">
-                            <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                        <form action="{{route('search')}}" class="form-search" name="desktop-seacrh" method="get">
+                            <input type="text" name="searchTerm"  class="input-text" value="" placeholder="Search here...">
                             <select name="category">
                                 <option value="-1" selected>All Categories</option>
                                 <option value="vegetables">Vegetables</option>

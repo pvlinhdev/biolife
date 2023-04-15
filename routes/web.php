@@ -18,11 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// homepage
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/product', [HomeController::class, 'show_product'])->name('product');
 Route::get('/product-detail/{slug}', [HomeController::class, 'product_detail'])->name('product_detail');
 Route::get('/category/{slug}', [HomeController::class, 'category_detail'])->name('category_detail');
 
+// search
+Route::get('/search', [HomeController::class, 'search'])->name('search');
+
+// checkout
 Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [CartController::class, 'store'])->name('checkout.store');
 
