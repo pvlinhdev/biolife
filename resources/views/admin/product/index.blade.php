@@ -35,6 +35,7 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
+                            <th>STT</th>
                             <th>Images</th>
                             <th>Product Name</th>
                             <th>Quantity</th>
@@ -47,6 +48,7 @@
                     <tbody class="table-border-bottom-0 " class="show-products">
                         @foreach ($productList as $pro)
                             <tr>
+                                <td>{{++$i}}</td>
                                 <td>
                                     <img src="{{ asset('uploads/products/' . $pro->image) }}" width="100" height="100" alt="img-{{$pro->name}}">
                                 </td>
@@ -82,6 +84,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{-- phân trang --}}
+                <div class="mt-4" style="text-align: right;">
+                    {{$productList->links()}}
+                </div>
             </div>
         </div>
         <!--/ Hoverable Table rows -->

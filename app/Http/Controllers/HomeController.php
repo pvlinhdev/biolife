@@ -34,8 +34,9 @@ class HomeController extends Controller
     }
     public function show_product()
     {
-        $productList = resolve(ShowProductAction::class)->run();
-        return view("product", compact('productList'));
+        // $productList = resolve(ShowProductAction::class)->run();
+        $productList = Product::paginate(24);
+        return view('product',compact('productList'))->with('i', (request()->input('page',1) -1) *5);
     }
     /**
      * Show the form for creating a new resource.

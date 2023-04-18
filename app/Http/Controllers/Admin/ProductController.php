@@ -17,8 +17,9 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $productList = resolve(ShowProductAction::class)->run();
-        return view('admin.product.index',compact('productList'));
+        // $productList = resolve(ShowProductAction::class)->run();
+        $productList = Product::paginate(10);
+        return view('admin.product.index',compact('productList'))->with('i', (request()->input('page',1) -1) *5);
     }
 
     /**
