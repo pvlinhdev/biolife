@@ -35,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
             $categoryList = Category::all();
             View::share('categoryList', $categoryList);
         }catch(Exception $ex){}
+
+        
     }
 }

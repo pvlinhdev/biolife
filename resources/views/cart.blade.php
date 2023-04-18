@@ -166,7 +166,7 @@
                                     <p class="desc">Based on 56789</p>
                                 </div>
                                 <div class="btn-checkout">
-                                    <a href="#" class="btn checkout">Check out</a>
+                                    <a href="{{route('checkout')}}" class="btn checkout">Check out</a>
                                 </div>
                                 <div class="biolife-progress-bar">
                                     <table>

@@ -8,6 +8,7 @@ use App\Services\Category\Actions\ShowCategoryAction;
 use App\Services\Product\Actions\ShowProductAction;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,7 @@ class HomeController extends Controller
     {
         return view("index");
     }
-    
+
     public function admin()
     {
         return view("admin.dashboard");
@@ -45,9 +46,9 @@ class HomeController extends Controller
         $product->views += 1;
         $product->save();
         $relatedProducts = $this->getRelatedProducts($product->category_id, $product->slug);
-        dd($relatedProducts);
         return view("product_detail", compact('product', 'relatedProducts'));
     }
+
     public function category_detail(Request $request, $slug)
     {
         try {
@@ -64,44 +65,24 @@ class HomeController extends Controller
             )
         );
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    // search
+    public function search(Request $request)
     {
-        //
+        $searchTerm = $request->input('searchTerm');
+
+        // Truy vấn các sản phẩm có tên gần đúng với từ khoá tìm kiếm
+        $products = Product::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
+        
+        return view('search_product', compact('products'));
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // search
+    public function getsearch(Request $request)
     {
-        //
-    }
+        $searchTerm = $request->input('searchTerm');
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        // Truy vấn các sản phẩm có tên gần đúng với từ khoá tìm kiếm
+        $products = Product::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
+        
+        return view('search_product', compact('products'));
     }
 }
