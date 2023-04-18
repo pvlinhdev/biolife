@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use Exception;
+use Illuminate\Pagination\Paginator;
 // use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +31,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // bootstrap
+        Paginator::useBootstrap();
         // hiển chị category lên tất cả các trang
         try{
             $categoryList = Category::all();
