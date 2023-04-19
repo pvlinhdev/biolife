@@ -44,8 +44,8 @@
                             <input type="number"  minlength="0" maxlength="" required class="form-control" name="price" id="basic-default-company" value="{{ old('price') }}">
                         </div>
                         <div class="mb-3 col-lg-4 ">
-                            <label class="form-label" for="basic-default-company">Price Product</label>
-                            <input type="number"  minlength="0" maxlength="" required class="form-control" name="price_cost" id="basic-default-company" value="{{ old('price_cost')}}">
+                            <label class="form-label" for="basic-default-company">Sale Price</label>
+                            <input type="number"  minlength="0" maxlength="" required class="form-control" name="sale_price" id="basic-default-company" value="{{ old('sale_price')}}">
                         </div>
                     </div>
                     <div class="row">

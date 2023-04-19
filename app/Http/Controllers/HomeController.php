@@ -15,9 +15,13 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Product $product)
     {
-        return view("index");
+        // $related = $product->relatedProducts(4, true)->with('categories')->get();
+
+        // return view('index', compact('product', 'related'));
+        $bestSellers = Product::bestSellers(8);
+        return view('index',compact('bestSellers'));
     }
 
     public function admin()
@@ -59,7 +63,7 @@ class HomeController extends Controller
             redirect()->route("category.notfound");
         }
         return view(
-            "product",
+            "category",
             array(
                 "category" => $category,
                 "productList" => $productList,
