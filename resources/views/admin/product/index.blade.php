@@ -57,7 +57,7 @@
                                 </td>
                                 <td>{{ $pro->quantity }}</td>
                                 <td>{{ $pro->price }}</td>
-                                <td>{{ $pro->price_cost }}</td>
+                                <td>{{ $pro->sale_price }}</td>
                                 <td>{{ $pro->category->name }}</td>
                                 <td>
                                     <div class="dropdown">

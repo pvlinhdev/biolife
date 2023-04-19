@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'slug', 'price','price_cost', 'quantity', 'description', 'image', 'category_id','sold','views'];
+    protected $fillable = ['name', 'slug', 'price','sale_price', 'quantity', 'description', 'image', 'category_id','sold','views'];
 
     public function category(){
         return $this->belongsTo(Category::class);
@@ -26,6 +26,11 @@ class Product extends Model
             $product->save();
         });
         
+    }
+    // sản phẩm bán chạy
+    public function scopeBestSellers($query, $limit = 10)
+    {
+        return $query->orderBy('sold', 'desc')->take($limit)->get();
     }
     
 

@@ -24,13 +24,14 @@ class CartController extends Controller
             );
         }
         $orderDetail = $order->orderDetails()->where('product_id', $request->input('product_id'))->first();
+        $quantity = $request->input('quantity', 1);
         if ($orderDetail == null) {
             $orderDetail = new OrderDetail();
             $orderDetail->product_id = $request->input('product_id');
-            $orderDetail->quantity = $request->input('quantity');
+            $orderDetail->quantity = $quantity;
             $order->orderDetails()->save($orderDetail);
         } else {
-            $orderDetail->quantity += $request->input('quantity');
+            $orderDetail->quantity += $quantity;
             $orderDetail->save();
         }
         return redirect()->route('cart');

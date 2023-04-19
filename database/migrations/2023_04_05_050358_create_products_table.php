@@ -19,7 +19,7 @@ return new class extends Migration
             $table->String('slug', 128)->nullable();
             $table->integer('quantity')->default(0);
             $table->decimal('price', 10, 2);
-            $table->decimal('price_cost', 10, 2);
+            $table->decimal('sale_price', 10, 2);
             $table->String('description', 1028);
             $table->integer('sold')->default(0);
             $table->integer('views')->default(0);

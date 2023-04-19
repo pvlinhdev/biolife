@@ -30,29 +30,29 @@
                         <div class="media">
                             <ul class="biolife-carousel slider-for"
                                 data-slick='{"arrows":false,"dots":false,"slidesMargin":30,"slidesToShow":1,"slidesToScroll":1,"fade":true,"asNavFor":".slider-nav"}'>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
-                                        height="500"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}"alt="" width="500"
-                                        height="500"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
-                                        height="500"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
-                                        height="500"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="500"
-                                        height="500"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="500" height="500"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}"alt=""
+                                        width="500" height="500"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="500" height="500"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="500" height="500"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="500" height="500"></li>
                             </ul>
                             <ul class="biolife-carousel slider-nav"
                                 data-slick='{"arrows":false,"dots":false,"centerMode":false,"focusOnSelect":true,"slidesMargin":10,"slidesToShow":4,"slidesToScroll":1,"asNavFor":".slider-for"}'>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
-                                        height="88"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
-                                        height="88"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
-                                        height="88"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
-                                        height="88"></li>
-                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt="" width="88"
-                                        height="88"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="88" height="88"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="88" height="88"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="88" height="88"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="88" height="88"></li>
+                                <li><img src="{{ asset('uploads/products/' . $product->image) }}" alt=""
+                                        width="88" height="88"></li>
                             </ul>
                         </div>
                         <div class="product-attribute">
@@ -67,9 +67,9 @@
                             <p class="excerpt">{{ $product->description }}</p>
                             <div class="price">
                                 <ins><span class="price-amount"><span
-                                            class="currencySymbol">£</span>{{ $product->price }}</span></ins>
+                                            class="currencySymbol">£</span>{{ $product->sale_price }}</span></ins>
                                 <del><span class="price-amount"><span
-                                            class="currencySymbol">£</span>{{ $product->price_cost }}</span></del>
+                                            class="currencySymbol">£</span>{{ $product->price }}</span></del>
                             </div>
                             <div class="shipping-info">
                                 <p class="shipping-day">3-Day Shipping</p>
@@ -89,8 +89,9 @@
                                 </div>
                             </div>
                             <div class="buttons">
-                                <input type="hidden" name="product_id" value="{{$product->id}}">
-                                <button type="submit" style="width:100%"class="btn add-to-cart-btn" value="Add to Cart">add to cart</button>
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <button type="submit" style="width:100%"class="btn add-to-cart-btn"
+                                    value="Add to Cart">add to cart</button>
                                 <p class="pull-row">
                                     <a href="#" class="btn wishlist-btn">wishlist</a>
                                     <a href="#" class="btn compare-btn">compare</a>
@@ -499,13 +500,14 @@
                                 <div class="contain-product layout-default">
                                     <div class="product-thumb">
                                         <a href="#" class="link-to-product">
-                                            <img src="{{ asset('uploads/products/' . $relatedProducts->image) }}" alt="dd" width="270"
-                                                height="270" class="product-thumnail">
+                                            <img src="{{ asset('uploads/products/' . $relatedProducts->image) }}"
+                                                alt="dd" width="270" height="270" class="product-thumnail">
                                         </a>
                                     </div>
                                     <div class="info">
-                                        <b class="categories">{{$relatedProducts->category->name}}</b>
-                                        <h4 class="product-title"><a href="#" class="pr-name">{{$relatedProducts->name}}</a>
+                                        <b class="categories">{{ $relatedProducts->category->name }}</b>
+                                        <h4 class="product-title"><a href="#"
+                                                class="pr-name">{{ $relatedProducts->name }}</a>
                                         </h4>
                                         <div class="price">
                                             <ins><span class="price-amount"><span
@@ -514,12 +516,14 @@
                                                         class="currencySymbol">£</span>95.00</span></del>
                                         </div>
                                         <div class="slide-down-box">
-                                            <p class="message">All products are carefully selected to ensure food safety.</p>
+                                            <p class="message">All products are carefully selected to ensure food safety.
+                                            </p>
                                             <div class="buttons">
                                                 <a href="#" class="btn wishlist-btn"><i class="fa fa-heart"
                                                         aria-hidden="true"></i></a>
                                                 <a href="#" class="btn add-to-cart-btn"><i
-                                                        class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to cart</a>
+                                                        class="fa fa-cart-arrow-down" aria-hidden="true"></i>add to
+                                                    cart</a>
                                                 <a href="#" class="btn compare-btn"><i class="fa fa-random"
                                                         aria-hidden="true"></i></a>
                                             </div>

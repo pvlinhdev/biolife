@@ -339,25 +339,8 @@
                                     @endforeach
                                 </ul>
                             </div>
-
-                            <div class="biolife-panigations-block">
-                                <ul class="panigation-contain">
-                                    {{-- phân trang --}}
-                                    {{ $productList->links() }}
-                                    {{-- <li><span class="current-page">1</span></li>
-                                <li><a href="#" class="link-page">2</a></li>
-                                    <li><a href="#" class="link-page">3</a></li>
-                                    <li><span class="sep">....</span></li>
-                                    <li><a href="#" class="link-page">20</a></li>
-                                    <li><a href="#" class="link-page next"><i class="fa fa-angle-right"
-                                                aria-hidden="true"></i></a></li> --}}
-                                </ul>
-                            </div>
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>

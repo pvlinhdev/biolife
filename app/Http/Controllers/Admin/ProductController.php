@@ -44,6 +44,7 @@ class ProductController extends Controller
             $request->merge(['image' => $file_name ]);
         }
         $product = resolve(CreateProductAction::class)->create($request->all());
+        // dd($request->all());
         // return response()->json(['status' => 'success']);
         return redirect()->route('admin.product.index');
     }
