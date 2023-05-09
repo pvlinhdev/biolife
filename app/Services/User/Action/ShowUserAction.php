@@ -9,8 +9,9 @@ class ShowUserAction extends Action{
         return resolve(ShowUserTask::class)->getUserList();
     }
 
-    public function getUser($id){
-
+    public function find($id)
+    {
+        return resolve(ShowUserTask::class)->find($id);
     }
 
     public function getUserByEmail($email){
@@ -19,5 +20,9 @@ class ShowUserAction extends Action{
 
     public function getUserByPhone($phone){
         
+    }
+
+    public function update($id, array $attributes){
+        return resolve(ShowUserTask::class)->update($id, $attributes);
     }
 }

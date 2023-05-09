@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         // return view('index', compact('product', 'related'));
         $bestSellers = Product::bestSellers(8);
-        return view('index',compact('bestSellers'));
+        return view('index', compact('bestSellers'));
     }
 
     public function admin()
@@ -36,11 +36,37 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
     }
+    // public function show_product()
+    // {
+    //     // $productList = resolve(ShowProductAction::class)->run();
+    //     $productList = Product::paginate(24);
+
+    //     return view('product',compact('productList'))->with('i', (request()->input('page',1) -1) *5);
+    // }
     public function show_product()
     {
-        // $productList = resolve(ShowProductAction::class)->run();
-        $productList = Product::paginate(24);
-        return view('product',compact('productList'))->with('i', (request()->input('page',1) -1) *5);
+        $sortBy = request()->input('sort_by', 'name_asc');
+
+        // ->appends(request()->query()); để chuyển page vẫn giữ sortBy
+        switch ($sortBy) {
+            case 'price_desc':
+                $productList = Product::orderByDesc('price')->paginate(24)->appends(request()->query());
+                break;
+            case 'price_asc':
+                $productList = Product::orderBy('sale_price')->paginate(24)->appends(request()->query());
+                break;
+            case 'name_desc':
+                $productList = Product::orderByDesc('name')->paginate(24)->appends(request()->query());
+                break;
+            default:
+                $productList = Product::orderBy('name')->paginate(24)->appends(request()->query());
+                break;
+        }
+        return view('product', [
+            'productList' => $productList,
+            'i' => (request()->input('page', 1) - 1) * 5,
+            'sort_by' => $sortBy,
+        ]);
     }
     /**
      * Show the form for creating a new resource.
@@ -77,7 +103,7 @@ class HomeController extends Controller
 
         // Truy vấn các sản phẩm có tên gần đúng với từ khoá tìm kiếm
         $products = Product::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
-        
+
         return view('search_product', compact('products'));
     }
     // search
@@ -87,7 +113,7 @@ class HomeController extends Controller
 
         // Truy vấn các sản phẩm có tên gần đúng với từ khoá tìm kiếm
         $products = Product::where('name', 'LIKE', '%' . $searchTerm . '%')->get();
-        
+
         return view('search_product', compact('products'));
     }
 }
