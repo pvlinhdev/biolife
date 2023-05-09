@@ -23,7 +23,8 @@
                             Create Category
                         </button>
                         <!-- Modal -->
-                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" aria-labelledby="modalCenter">
+                        <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true"
+                            aria-labelledby="modalCenter">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -59,7 +60,7 @@
                                             <button type="submit" class="btn btn-primary">Save changes</button>
                                         </div>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -84,7 +85,8 @@
                                     img
                                 </td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
-                                    <strong>{{ $cat->name }}</strong></td>
+                                    <strong>{{ $cat->name }}</strong>
+                                </td>
                                 <td>{{ $cat->description }}</td>
 
                                 <td><span class="badge bg-label-primary me-1">Active</span></td>
@@ -98,13 +100,34 @@
                                             <a class="dropdown-item" href="{{ route('admin.category.edit', $cat->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                            <form method="post" action="{{ route('admin.category.destroy', $cat->id) }}"
-                                                class="delete-category">
-                                                @method('delete')
-                                                @csrf
-                                                <a  class="dropdown-item"><i class="bx bx-trash me-1"></i>
-                                                <button type="submit" data-id="{{ $cat->id }}" class="btn">Delete </button></a>
-                                            </form>
+                                            <button type="button" class="btn btn-danger delete"
+                                                data-id="{{ $cat->id }}"
+                                                data-bs-toggle="modal"
+                                                data-target="#confirm-delete">Xóa</button>
+
+                                            <!-- Modal xác nhận xóa danh mục -->
+                                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
+                                                aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Xác nhận xóa danh mục</h4>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close"><span
+                                                                    aria-hidden="true">&times;</span></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc chắn muốn xóa danh mục này không?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger"
+                                                                id="confirm">Xóa</button>
+                                                            <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Hủy</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
@@ -118,48 +141,63 @@
     </div>
 @endsection
 @section('script')
-{{-- create --}}
-<script>
-    $(document).ready(function() {
-    $('#create-category-form').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                alert('Thêm danh mục thành công');
-                window.location.href = '{{ route("admin.category.index") }}';
-            },
-            error: function(response) {
-                alert('Thêm danh mục thất bại. Vui lòng thử lại sau.');
-            }
-        });
-    });
-});
-</script>
-{{-- delete --}}
-<script>
-    $(document).ready(function() {
-    $('.delete-category').submit(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('action');
-        if (confirm('Bạn có chắc chắn muốn xoá danh mục này không?')) {
-            $.ajax({
-                type: 'DELETE',
-                url: url,
-                success: function(response) {
-                alert('Xoá danh mục thành công');
-                window.location.href = '{{ route("admin.category.index") }}';
-                },
-                error: function(response) {
-                    alert('Xoá danh mục thất bại. Vui lòng thử lại sau.');
-                }
+    {{-- create --}}
+    <script>
+        $(document).ready(function() {
+            $('#create-category-form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert('Thêm danh mục thành công');
+                        window.location.href = '{{ route('admin.category.index') }}';
+                    },
+                    error: function(response) {
+                        alert('Thêm danh mục thất bại. Vui lòng thử lại sau.');
+                    }
                 });
-        }
-    });
-});
-</script>
-
+            });
+        });
+    </script>
+    {{-- delete --}}
+    <script>
+        $(document).ready(function() {
+            // Khi người dùng nhấp vào nút xóa, hiển thị Modal xác nhận
+            $('.delete').click(function() {
+                var id = $(this).data('id');
+                $('#confirm-delete').modal('show');
+                $('#confirm').click(function() {
+                    $.ajax({
+                        url: '/category/' + id,
+                        type: 'DELETE',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.success) {
+                                // Hiển thị thông báo thành công và tải lại trang
+                                toastr.success('Đã xóa danh mục thành công!');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
+                            } else {
+                                // Hiển thị thông báo lỗi
+                                toastr.error(
+                                    'Không thể xóa danh mục này. Vui lòng thử lại sau.'
+                                );
+                            }
+                            $('#confirm-delete').modal('hide');
+                        },
+                        error: function() {
+                            // Hiển thị thông báo lỗi
+                            toastr.error(
+                                'Không thể xóa danh mục này. Vui lòng thử lại sau.');
+                            $('#confirm-delete').modal('hide');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 
 @endsection

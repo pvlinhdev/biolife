@@ -1,6 +1,8 @@
     @extends('master')
     @section('title', __('Biolife - Shop'))
-
+    @section('stylesheet')
+        <link rel="stylesheet" href="{{ asset('assets/css/button.css') }}">
+    @endsection
     @section('content')
         <!--Hero Section-->
         <div class="hero-section hero-background">
@@ -17,7 +19,6 @@
                 </ul>
             </nav>
         </div>
-
         <div class="page-contain category-page no-sidebar">
             <div class="container">
                 <div class="row">
@@ -270,27 +271,28 @@
                                         </form>
                                     </div>
                                 </div>
+                                <form id="sort-form">
                                 <div class="flt-item to-right">
                                     <span class="flt-title">Sort</span>
                                     <div class="wrap-selectors">
                                         <div class="selector-item orderby-selector">
-                                            <select name="orderby" class="orderby" aria-label="Shop order">
-                                                <option value="menu_order" selected="selected">Default sorting</option>
-                                                <option value="popularity">popularity</option>
-                                                <option value="rating">average rating</option>
-                                                <option value="date">newness</option>
-                                                <option value="price">price: low to high</option>
-                                                <option value="price-desc">price: high to low</option>
+                                            <select name="sort_by" class="orderby" aria-label="Shop order">
+                                                <option value="{{ route('product', ['sort_by' => 'name_asc']) }}"
+                                                    >Name: A to Z</option>
+                                                <option value="{{ route('product', ['sort_by' => 'name_desc']) }}">Name: Z
+                                                    to A</option>
+                                                <option value="{{ route('product', ['sort_by' => 'price_asc']) }}">Price:
+                                                    Low to High</option>
+                                                <option value="{{ route('product', ['sort_by' => 'price_desc']) }}">Price:
+                                                    High to Low</option>
                                             </select>
                                         </div>
                                         <div class="selector-item viewmode-selector">
-                                            <a href="category-grid-left-sidebar.html" class="viewmode grid-mode active"><i
-                                                    class="biolife-icon icon-grid"></i></a>
-                                            <a href="category-list-left-sidebar.html" class="viewmode detail-mode"><i
-                                                    class="biolife-icon icon-list"></i></a>
+                                            <button class="btn btn-success buton_filter" type="submit" id="submit-btn">Submit</button>
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
 
                             <div class="row">
@@ -361,4 +363,16 @@
                 </div>
             </div>
         </div>
+    @endsection
+    @section('script')
+        <script>
+            const form = document.getElementById('sort-form');
+            const submitBtn = document.getElementById('submit-btn');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const selectedOption = form.elements.sort_by.value;
+                window.location.href = selectedOption;
+            });
+        </script>
     @endsection

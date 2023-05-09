@@ -16,5 +16,12 @@ class ShowUserTask extends Task{
     public function getUserList(){
         return $this->repository->list();
     }
-
+    public function find($id)
+    {
+        return $this->repository->find($id);
+    }
+    public function update($id, array $attributes)
+    {
+        return $this->repository->update($id, $attributes);
+    }
 }

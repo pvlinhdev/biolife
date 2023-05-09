@@ -17,5 +17,9 @@ class CreateUserTask extends Task{
         //get info user form api by phone
         
     }
+    public function create(array $attributes)
+    {
+        return $this->repository->create($attributes);
+    }
 
 }

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
@@ -65,6 +67,18 @@ Route::group(['prefix'=>'/admin'],function(){
     Route::get('/product/create', [ProductController::class, 'create'])->name('admin.product.create');
     Route::post('/product', [ProductController::class, 'store'])->name('admin.product.store');
 
+// admin user
+    Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+    Route::get('/user/{id}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+    Route::put('/user/{id}', [UserController::class, 'update'])->name('admin.user.update');
+    
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('admin.user.destroy');
+
+    Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
+    Route::post('/user', [UserController::class, 'store'])->name('admin.user.store');
+
+// admmin profile
+    Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile.index');
 });
 
 Auth::routes();

@@ -52,7 +52,7 @@
                                                             placeholder="Your email">
                                                     </p>
                                                     <p class="form-row">
-                                                    <div id="shipping-address">
+                                                    <div id="shipping-address" class="form-row">
                                                         <label for="address1">Địa chỉ 1:</label>
                                                         <input type="text" id="address1" name="address"><br>
                                                         <label for="address2">Địa chỉ 2:</label>
