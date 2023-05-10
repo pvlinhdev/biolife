@@ -33,7 +33,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <form method="POST" action="{{ route('admin.category.store') }}"
-                                        enctype="multipart/form-data" id="create-category-form">
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
                                             <div class="row">
@@ -100,34 +100,13 @@
                                             <a class="dropdown-item" href="{{ route('admin.category.edit', $cat->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                            <button type="button" class="btn btn-danger delete"
-                                                data-id="{{ $cat->id }}"
-                                                data-bs-toggle="modal"
-                                                data-target="#confirm-delete">Xóa</button>
-
-                                            <!-- Modal xác nhận xóa danh mục -->
-                                            <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog"
-                                                aria-labelledby="myModalLabel">
-                                                <div class="modal-dialog" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Xác nhận xóa danh mục</h4>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
-                                                                    aria-hidden="true">&times;</span></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            Bạn có chắc chắn muốn xóa danh mục này không?
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-danger"
-                                                                id="confirm">Xóa</button>
-                                                            <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Hủy</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{-- <form action="{{ route('admin.category.destroy', $cat->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-delete">Delete</button>
+                                            </form> --}}
+                                            <button class="btn btn-danger delete-category"
+                                                data-id="{{ $cat->id }}">Xóa</button>
                                         </div>
                                     </div>
                                 </td>
@@ -141,61 +120,55 @@
     </div>
 @endsection
 @section('script')
-    {{-- create --}}
-    <script>
-        $(document).ready(function() {
-            $('#create-category-form').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        alert('Thêm danh mục thành công');
-                        window.location.href = '{{ route('admin.category.index') }}';
-                    },
-                    error: function(response) {
-                        alert('Thêm danh mục thất bại. Vui lòng thử lại sau.');
-                    }
-                });
-            });
-        });
-    </script>
     {{-- delete --}}
     <script>
+        // Xác nhận xóa danh mục
         $(document).ready(function() {
-            // Khi người dùng nhấp vào nút xóa, hiển thị Modal xác nhận
-            $('.delete').click(function() {
-                var id = $(this).data('id');
-                $('#confirm-delete').modal('show');
-                $('#confirm').click(function() {
-                    $.ajax({
-                        url: '/category/' + id,
-                        type: 'DELETE',
-                        dataType: 'json',
-                        success: function(data) {
-                            if (data.success) {
-                                // Hiển thị thông báo thành công và tải lại trang
-                                toastr.success('Đã xóa danh mục thành công!');
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 1000);
-                            } else {
-                                // Hiển thị thông báo lỗi
-                                toastr.error(
-                                    'Không thể xóa danh mục này. Vui lòng thử lại sau.'
-                                );
-                            }
-                            $('#confirm-delete').modal('hide');
-                        },
-                        error: function() {
-                            // Hiển thị thông báo lỗi
-                            toastr.error(
-                                'Không thể xóa danh mục này. Vui lòng thử lại sau.');
-                            $('#confirm-delete').modal('hide');
+            $('.delete-category').click(function(e) {
+                e.preventDefault();
+                var categoryId = $(this).data('id');
+                Swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: "{{ route('admin.category.destroy', ':id') }}"
+                                    .replace(':id', categoryId),
+                                type: 'POST',
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': '{{ csrf_token() }}'
+                                },
+                                success: function(data) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                },
+                                error: function(xhr, textStatus, errorThrown) {
+                                    Swal.fire(
+                                        'Error',
+                                        'An error occurred while deleting the category!',
+                                        'error'
+                                    );
+                                }
+                            });
+                        } else {
+                            Swal.fire(
+                                'Cancelled',
+                                'The category was not deleted!',
+                                'error'
+                            );
                         }
                     });
-                });
             });
         });
     </script>

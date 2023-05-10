@@ -33,7 +33,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         // xử lý ảnh
         if($request->has('file_upload')){
@@ -44,8 +44,12 @@ class ProductController extends Controller
             $request->merge(['image' => $file_name ]);
         }
         $product = resolve(CreateProductAction::class)->create($request->all());
-        // dd($request->all());
-        // return response()->json(['status' => 'success']);
+
+        if ($product) {
+            alert()->success('Product Created', 'Successfully'); // hoặc có thể dùng alert('Post Created','Successfully', 'success');
+        } else {
+            alert()->error('Product Created', 'Something went wrong!'); // hoặc có thể dùng alert('Post Created','Something went wrong!', 'error');
+        }
         return redirect()->route('admin.product.index');
     }
 

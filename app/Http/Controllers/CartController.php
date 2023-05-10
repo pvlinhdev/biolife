@@ -112,16 +112,19 @@ class CartController extends Controller
         ]);
 
         $customer = Receivership::create($request->all());
+        
         // Lấy id của bản ghi Receivership vừa được tạo
         $receivershipId = $customer->id;
 
         // Cập nhật trường receivership_id trong bảng orders
         $order->receivership_id = $receivershipId;
         $order->save();
-        // dd($request->all());
-        $request->session()->flash('status', 'them thanh cong');
-        // return redirect()->route('checkout');
-        return response()->json(['status' => 'success']);
+        if ($order) {
+            alert()->success('Order Created', 'Successfully');
+        } else {
+            alert()->error('Order Created', 'Something went wrong!');
+        }
+        return redirect()->route('checkout');
     }
 
     

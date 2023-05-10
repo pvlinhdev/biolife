@@ -117,3 +117,15 @@
 .help-block{
   color: red;
 }
+
+.photo img{
+  width: 100%;
+  border-radius: 50%;
+}
+.name_profile{
+  text-align: center;
+  background-color: #e5e8eb;
+  padding: 2%;
+  font-weight: 700;
+  border-radius: 15px;
+}
