@@ -77,13 +77,12 @@ class ProductController extends Controller
         if($request->has('file_upload')){
             $file = $request->file_upload;
             $ext = $request->file_upload->extension();
-            $file_name = time().'-'.'product.'.$ext;
-            $file->move(public_path('uploads/products'),$file_name);
+            $file_name = time().'-'.'user.'.$ext;
+            $file->move(public_path('uploads/users'),$file_name);
             $request->merge(['image' => $file_name ]);
         }
-        $product = resolve(UpdateProductAction::class)->update($id, $request->all());
-        // return redirect()->route('admin.category.index');
-        return response()->json(['status' => 'success']);
+        $product = resolve(UpdateUserAction::class)->update($id, $request->all());
+        return redirect()->route('admin.user.index');
     }
 
     /**

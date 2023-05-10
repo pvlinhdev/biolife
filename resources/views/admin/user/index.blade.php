@@ -32,7 +32,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <form method="POST" action="{{ route('admin.user.store') }}"
-                                        enctype="multipart/form-data" id="create-user-form">
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <div class="modal-body">
                                             <div class="row">
@@ -41,6 +41,14 @@
                                                     <input type="text" id="nameWithTitle" class="form-control"
                                                         placeholder="Enter Name" name="name" required="required"
                                                         value="{{ old('name') }}" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col mb-3">
+                                                    <label for="nameWithTitle" class="form-label">Phone  <span class="requite"></span></label>
+                                                    <input type="text" id="nameWithTitle" class="form-control"
+                                                        placeholder="Enter Phone" name="phone" 
+                                                        value="{{ old('phone') }}" />
                                                 </div>
                                             </div>
                                             <div class="row g-2">
@@ -72,7 +80,7 @@
                                             </div>
                                             <div class="row g-2">
                                                 <label class="form-label" for="basic-default-phone">Iamge</label>
-                                                <input type="file" id="basic-default-phone" class="form-control phone-mask" />
+                                                <input type="file" name="file_upload" id="basic-default-phone" class="form-control phone-mask" />
                                             </div>
                                         </div>
                                         
@@ -97,6 +105,7 @@
                         <tr>
                             <th>Images</th>
                             <th>Name</th>
+                            <th>Phone</th>
                             <th>Email</th>
                             <th>Status</th>
                             <th>Actions</th>
@@ -106,10 +115,11 @@
                         @foreach ($userList as $user)
                             <tr>
                                 <td>
-                                    img
+                                    <img src="{{ asset('uploads/users/' . $user->image) }}" width="100" height="100" alt="img-{{$user->name}}">
                                 </td>
                                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i>
                                     <strong>{{ $user->name }}</strong></td>
+                                <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
 
                                 <td><span class="badge bg-label-primary me-1">Active</span></td>
@@ -147,48 +157,6 @@
     </div>
 @endsection
 @section('script')
-{{-- create --}}
-<script>
-    $(document).ready(function() {
-    $('#create-user-form').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                alert('Thêm user thành công');
-                window.location.href = '{{ route("admin.user.index") }}';
-            },
-            error: function(response) {
-                alert('Thêm user thất bại. Vui lòng thử lại sau.');
-            }
-        });
-    });
-});
-</script>
-{{-- delete --}}
-<script>
-    $(document).ready(function() {
-    $('.delete-user').submit(function(event) {
-        event.preventDefault();
-        var url = $(this).attr('action');
-        if (confirm('Bạn có chắc chắn muốn xoá người dùng này không?')) {
-            $.ajax({
-                type: 'DELETE',
-                url: url,
-                success: function(response) {
-                alert('Xoá người dùng thành công');
-                window.location.href = '{{ route("admin.user.index") }}';
-                },
-                error: function(response) {
-                    alert('Xoá người dùng thất bại. Vui lòng thử lại sau.');
-                }
-                });
-        }
-    });
-});
-</script>
 
 
 @endsection

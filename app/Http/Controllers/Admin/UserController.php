@@ -38,10 +38,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        // xử lý ảnh
+        if($request->has('file_upload')){
+            $file = $request->file_upload;
+            $ext = $request->file_upload->extension();
+            $file_name = time().'-'.'user.'.$ext;
+            $file->move(public_path('uploads/users'),$file_name);
+            $request->merge(['image' => $file_name ]);
+        }
         $user = resolve(CreateUserAction::class)->create($request->all());
-        // dd($user);
-        return response()->json(['status' => 'success']);
-        // return view('admin.user.index');
+        if ($user) {
+            alert()->success('User Created', 'Successfully'); // hoặc có thể dùng alert('Post Created','Successfully', 'success');
+        } else {
+            alert()->error('User Created', 'Something went wrong!'); // hoặc có thể dùng alert('Post Created','Something went wrong!', 'error');
+        }
+        return redirect()->route('admin.user.index');
+
     }
 
     /**
@@ -66,8 +78,21 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // xử lý ảnh
+        if($request->has('file_upload')){
+            $file = $request->file_upload;
+            $ext = $request->file_upload->extension();
+            $file_name = time().'-'.'user.'.$ext;
+            $file->move(public_path('uploads/users'),$file_name);
+            $request->merge(['image' => $file_name ]);
+        }
         $user = resolve(ShowUserAction::class)->update($id, $request->all());
-        return response()->json(['status' => 'success']);
+        if ($user) {
+            alert()->success('User Update', 'Successfully'); // hoặc có thể dùng alert('Post Created','Successfully', 'success');
+        } else {
+            alert()->error('User Update', 'Something went wrong!'); // hoặc có thể dùng alert('Post Created','Something went wrong!', 'error');
+        }
+        return redirect()->route('admin.user.index');
     }
 
     /**

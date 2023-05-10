@@ -14,14 +14,18 @@
                     <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.user.update', $user->id) }}" enctype="multipart/form-data"
-                        id="update-user-form">
+                    <form method="post" action="{{ route('admin.user.update', $user->id) }}" enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">user Name</label>
+                            <label class="form-label" for="basic-default-fullname">Name</label>
                             <input type="text" class="form-control" name="name" id="basic-default-fullname"
                                 value="{{ $user->name }}" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="basic-default-fullname">Phone</label>
+                            <input type="text" class="form-control" name="phone" id="basic-default-fullname"
+                                value="{{ $user->phone }}" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-company">Email</label>
@@ -45,13 +49,11 @@
                               ></span>
                             </div>
                           </div>
-                        {{-- <div class="mb-3">
-                            <label class="form-label" for="basic-default-company">Description</label>
-                            <input type="password" class="form-control" name="password" id="basic-default-company" value="{{$user->password }}">
-                        </div> --}}
                         <div class="mb-3 mt-3">
                             <label class="form-label" for="basic-default-phone">Iamge</label>
-                            <input type="file" id="basic-default-phone" class="form-control phone-mask" />
+                            <img src="{{ asset('uploads/users/' . $user->image) }}" width="100" height="100" alt="img-{{$user->name}}">
+
+                            <input type="file" name="file_upload" id="basic-default-phone" class="form-control phone-mask" value="{{ $user->image }}"/>
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
@@ -61,25 +63,5 @@
     </div>
 @endsection
 @section('script')
-    <script>
-        $(document).ready(function() {
-            $('#update-user-form').submit(function(event) {
-                event.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: $(this).attr('action'),
-                    data: $(this).serialize(),
-                    success: function(response) {
-                        alert('Cập nhật người đung thành công');
-                        window.location.href = '{{ route('admin.user.index') }}';
-                    },
-                    error: function(response) {
-                        alert('Cập nhật người đung thất bại. Vui lòng thử lại sau.');
-                    }
-                });
-            });
-        });
-    </script>
-
 
 @endsection
