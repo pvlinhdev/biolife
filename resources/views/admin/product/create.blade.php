@@ -80,22 +80,5 @@
 @endsection
 @section('script')
 <script>
-    $(document).ready(function() {
-    $('#create-product-form').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: $(this).attr('action'),
-            data: $(this).serialize(),
-            success: function(response) {
-                alert('Thêm sản phẩm thành công');
-                window.location.href = '{{ route("admin.product.index") }}';
-            },
-            error: function(response) {
-                alert('Thêm sản phẩm thất bại. Vui lòng thử lại sau.');
-            }
-        });
-    });
-});
 </script>
 @endsection

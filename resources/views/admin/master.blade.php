@@ -44,14 +44,18 @@
     <script src="{{ asset('admin/assets/vendor/js/helpers.js') }}"></script>
 
     <script src="{{ asset('admin/assets/js/config.js') }}"></script>
+
+    
+
 </head>
 
 <body>
+@include('sweetalert::alert')
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
             <!-- Menu -->
-
             @include('admin/inc/sidebar')
 
             <!-- / Menu -->
@@ -106,6 +110,10 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    {{-- sweetAlert hiện thông báo --}}
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
     @yield('script')
 
 </body>

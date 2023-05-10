@@ -2,6 +2,7 @@
 @section('title', __('Admin Category'))
 
 @section('content')
+
     <div class="container-xxl flex-grow-1 container-p-y">
         <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Forms/</span> Vertical Layouts</h4>
         <!-- Basic Layout -->
@@ -12,7 +13,8 @@
                     <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data" id="update-category-form">
+                    <form method="post" action="{{ route('admin.category.update', $category->id) }}" enctype="multipart/form-data" >
+                        {{-- id="update-category-form"> --}}
                         @method('put')
                         @csrf
                         <div class="mb-3">

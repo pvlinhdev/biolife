@@ -29,7 +29,8 @@ class ProductRequest extends FormRequest
             'price' => 'required|min:1|max:100',
             'quantity' => 'required|min:1|max:10',
             'desciption' => 'required|min:1|max:10000',
-            'category_id' => "required"
+            'category_id' => "required",
+            'image'=> "required",
 
         ];
     }
@@ -48,11 +49,10 @@ class ProductRequest extends FormRequest
             'price.min' => 'Do dai phai lon hon 1 ky tu',
             'price.max' => 'Do dai phai be hon 10 ky tu',
             'quantity.required' => 'Phai co so luong ',
+            'image.required' => 'Phai co hình ảnh ',
             'quantity.min' => 'So luong phai lon hon 1 ky tu',
             'quantity.max' => 'So luong phai be hon 10 ky tu',
-            // 'img.mimes' => 'Phai la loai anh jpeg,jpg,png hoac gif',            
-            // 'img.required' => 'Phai co anh minh hoa',
-            // 'img.max' => 'Do dai phai be hon 10000kb',
+            'image.mimes' => 'Phai la loai anh jpeg,jpg,png hoac gif',            
             'description.required' => 'Phai co mo ta',
             'description.min' => 'Do dai phai lon hon 10 ky tu',
             'description.max' => 'Do dai phai be hon 1000 ky tu',
