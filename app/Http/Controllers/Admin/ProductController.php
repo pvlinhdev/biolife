@@ -33,7 +33,7 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(Request $request)
     {
         // xử lý ảnh
         if($request->has('file_upload')){
@@ -77,12 +77,17 @@ class ProductController extends Controller
         if($request->has('file_upload')){
             $file = $request->file_upload;
             $ext = $request->file_upload->extension();
-            $file_name = time().'-'.'user.'.$ext;
-            $file->move(public_path('uploads/users'),$file_name);
+            $file_name = time().'-'.'product.'.$ext;
+            $file->move(public_path('uploads/products'),$file_name);
             $request->merge(['image' => $file_name ]);
         }
-        $product = resolve(UpdateUserAction::class)->update($id, $request->all());
-        return redirect()->route('admin.user.index');
+        $product = resolve(UpdateProductAction::class)->update($id, $request->all());
+        if ($product) {
+            alert()->success('Product Update', 'Successfully'); // hoặc có thể dùng alert('Post Update','Successfully', 'success');
+        } else {
+            alert()->error('Product Update', 'Something went wrong!'); // hoặc có thể dùng alert('Post Created','Something went wrong!', 'error');
+        }
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -90,6 +95,16 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+        try {
+            $product->delete();
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete Product'], 500);
+        }
+
+        return response()->json(['success' => true], 200);
     }
 }

@@ -70,13 +70,9 @@
                                                 href="{{ route('admin.product.edit', $pro->id) }}"><i
                                                     class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                            <form method="post"
-                                                action="{{ route('admin.category.destroy', $pro->id) }}">
-                                                @method('delete')
-                                                @csrf
+                                            
                                                 <a class="dropdown-item"><i class="bx bx-trash me-1"></i>
-                                                    <button type="submit" class="btn">Delete</button></a>
-                                            </form>
+                                                    <button type="submit" class="btn delete-product" data-id="{{ $pro->id }}">Delete</button></a>
                                         </div>
                                     </div>
                                 </td>
@@ -98,4 +94,56 @@
         crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
         crossorigin="anonymous"></script>
+        {{-- delete --}}
+    <script>
+        // Xác nhận xóa danh mục
+        $(document).ready(function() {
+            $('.delete-product').click(function(e) {
+                e.preventDefault();
+                var productId = $(this).data('id');
+                Swal({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Yes, delete it!',
+                        cancelButtonText: 'No, cancel!',
+                        reverseButtons: true
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            $.ajax({
+                                url: "{{ route('admin.product.destroy', ':id') }}"
+                                    .replace(':id', productId),
+                                type: 'POST',
+                                data: {
+                                    '_method': 'DELETE',
+                                    '_token': '{{ csrf_token() }}'
+                                },
+                                success: function(data) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    )
+                                },
+                                error: function(xhr, textStatus, errorThrown) {
+                                    Swal.fire(
+                                        'Error',
+                                        'An error occurred while deleting the product!',
+                                        'error'
+                                    );
+                                }
+                            });
+                        } else {
+                            Swal.fire(
+                                'Cancelled',
+                                'The product was not deleted!',
+                                'error'
+                            );
+                        }
+                    });
+            });
+        });
+    </script>
 @endsection
