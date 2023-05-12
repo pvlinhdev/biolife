@@ -48,16 +48,7 @@
                             <input type="number"  minlength="0" maxlength="" required class="form-control" name="sale_price" id="basic-default-company" value="{{ old('sale_price')}}">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-lg-6 ">
-                            <label class="form-label" for="basic-default-company">sold</label>
-                            <input type="number"  minlength="0" maxlength=""  class="form-control" name="sold" id="basic-default-company" value="{{ old('sold')}}">
-                        </div>
-                        <div class="mb-3 col-lg-6 ">
-                            <label class="form-label" for="basic-default-company">views</label>
-                            <input type="number"  minlength="0" maxlength="" class="form-control" name="views" id="basic-default-company" value="{{ old('views')}}">
-                        </div>
-                    </div>
+                    
                     
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-phone">Iamge</label>

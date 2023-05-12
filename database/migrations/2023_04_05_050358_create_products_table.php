@@ -21,8 +21,8 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->decimal('sale_price', 10, 2);
             $table->String('description', 1028);
-            $table->integer('sold')->default(0);
-            $table->integer('views')->default(0);
+            $table->integer('sold')->default(0)->nullable();
+            $table->integer('views')->default(0)->nullable();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();

@@ -36,20 +36,9 @@
                             </div>
                             <div class="mb-3 col-lg-4 ">
                                 <label class="form-label" for="basic-default-company">Price Product</label>
-                                <input type="number"  minlength="0" maxlength="" required class="form-control" name="price_cost" id="basic-default-company" value="{{ $product->price_cost }}">
+                                <input type="number"  minlength="0" maxlength="" required class="form-control" name="price_cost" id="basic-default-company" value="{{ $product->sale_price }}">
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="mb-3 col-lg-6 ">
-                                <label class="form-label" for="basic-default-company">sold</label>
-                                <input type="number"  minlength="0" maxlength=""  class="form-control" name="sold" id="basic-default-company" value="{{ $product->sold }}">
-                            </div>
-                            <div class="mb-3 col-lg-6 ">
-                                <label class="form-label" for="basic-default-company">views</label>
-                                <input type="number"  minlength="0" maxlength="" class="form-control" name="views" id="basic-default-company" value="{{ $product->views }}">
-                            </div>
-                        </div>
-                        
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-phone">Iamge</label>
                             <input type="file" name="file_upload" id="basic-default-phone" class="form-control phone-mask" value="{{ $product->image }}"/>
