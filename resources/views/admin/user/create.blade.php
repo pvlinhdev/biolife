@@ -14,7 +14,9 @@
                     <small class="text-muted float-end">Default label</small>
                 </div>
                 <div class="card-body">
-                    {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.user.update', $user->id]]) !!}
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    {!! Form::open(['route' => 'admin.user.store', 'method' => 'POST']) !!}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -40,12 +42,16 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
                                     <div class="form-group">
-                                        <strong>Phone:</strong>
-                                        {!! Form::text('phone', old('phone'), [
-                                            'placeholder' => 'Phone',
-                                            'class' => 'form-control',
-                                        ]) !!}
-                                        <span class="text-danger">{{ $errors->first('phone') }}</span>
+                                        <label class="form-label" for="basic-default-phone">Phone</label>
+                                        <input type="text" name="phone" id="basic-default-phone"
+                                            class="form-control phone-mask" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label" for="basic-default-phone">Iamge</label>
+                                        <input type="file" name="file_upload" id="basic-default-phone"
+                                            class="form-control phone-mask" />
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12">
@@ -62,16 +68,13 @@
                                         <span class="text-danger">{{ $errors->first('confirm-password') }}</span>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <strong>Role:</strong>
-                                    @if(isset($roles))
-                                        {!! Form::select('roles', $roles, old('roles', []), ['class' => 'form-control', 'multiple']) !!}
-                                    @endif
-                                    @if(isset($errors))
-                                        <span class="text-danger">{{ $errors->first('roles') }}</span>
-                                    @endif
+                                    {!! Form::select('roles', $roles, old('roles', []), ['class' => 'form-control', 'multiple']) !!}
+                                    <span class="text-danger">{{ $errors->first('roles') }}</span>
                                 </div>
                             </div>
                         </div>

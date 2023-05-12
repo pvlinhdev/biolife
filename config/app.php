@@ -198,6 +198,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        // phan quyen
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*
