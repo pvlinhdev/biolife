@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
@@ -42,7 +44,7 @@ Route::get('/show-blog', function () {
 });
 
 
-Route::group(['prefix'=>'/admin'],function(){
+Route::group(['middleware' => ['auth'],'prefix'=>'/admin'],function(){
 
     Route::get('/dashboard', [HomeController::class, 'admin'])->name('admin.dashboard');
     
@@ -76,6 +78,26 @@ Route::group(['prefix'=>'/admin'],function(){
 
     Route::get('/user/create', [UserController::class, 'create'])->name('admin.user.create');
     Route::post('/user', [UserController::class, 'store'])->name('admin.user.store');
+
+    // phân quyền
+    Route::get('/permission', [PermissionController::class, 'index'])->name('admin.permissions.index');
+    Route::get('/permission/{id}/edit', [PermissionController::class, 'edit'])->name('admin.permissions.edit');
+    Route::put('/permission/{id}', [PermissionController::class, 'update'])->name('admin.permissions.update');
+    
+    Route::delete('/permission/{id}', [PermissionController::class, 'destroy'])->name('admin.permissions.destroy');
+
+    Route::get('/permission/create', [PermissionController::class, 'create'])->name('admin.permissions.create');
+    Route::post('/permission', [PermissionController::class, 'store'])->name('admin.permissions.store');
+
+    // phân quyền
+    Route::get('/role', [RoleController::class, 'index'])->name('admin.roles.index');
+    Route::get('/role/{id}/edit', [RoleController::class, 'edit'])->name('admin.roles.edit');
+    Route::put('/role/{id}', [RoleController::class, 'update'])->name('admin.roles.update');
+    
+    Route::delete('/role/{id}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');
+
+    Route::get('/role/create', [RoleController::class, 'create'])->name('admin.roles.create');
+    Route::post('/role', [RoleController::class, 'store'])->name('admin.roles.store');
 
 // admmin profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile.index');

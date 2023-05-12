@@ -15,10 +15,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    function __construct()
+    {
+         $this->middleware('permission:product-list|product-create|product-edit|product-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:product-create', ['only' => ['create','store']]);
+         $this->middleware('permission:product-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:product-delete', ['only' => ['destroy']]);
+    }
+
     public function index(Request $request)
     {
         // $productList = resolve(ShowProductAction::class)->run();
-        $productList = Product::paginate(10);
+        $productList = Product::orderBy('id', 'DESC')->paginate(10);
         return view('admin.product.index',compact('productList'))->with('i', (request()->input('page',1) -1) *5);
     }
 
