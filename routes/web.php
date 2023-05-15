@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\admin\ProfileController;
@@ -98,6 +100,15 @@ Route::group(['middleware' => ['auth'],'prefix'=>'/admin'],function(){
 
     Route::get('/role/create', [RoleController::class, 'create'])->name('admin.roles.create');
     Route::post('/role', [RoleController::class, 'store'])->name('admin.roles.store');
+
+
+
+    // order
+    Route::resource('/order', OrderController::class);
+
+    Route::resource('/account', AccountController::class);
+
+
 
 // admmin profile
     Route::get('/profile', [ProfileController::class, 'index'])->name('admin.profile.index');

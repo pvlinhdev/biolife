@@ -1,24 +1,26 @@
-<div class="modal fade" id="permissionCenter" tabindex="-1" aria-hidden="true" aria-labelledby="permissionCenter">
+
+<div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true" aria-labelledby="modalCenter">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalCenterTitle">Create Permission</h5>
+                <h5 class="modal-title" id="modalCenterTitle">Create Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form method="POST" action="" id="permissionForm">
+            <form method="POST" action="{{ route('admin.category.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="_method" id="permission_method" value="POST">
-                    <input type="hidden" name="id" id="id" value="">
-                    <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                id="name" name="name" placeholder="Enter Name" value=""
-                                required>
-                            @error('name')
-                                <p class="mt-2 mb-0 error text-danger">{{ $message }}</p>
-                            @enderror
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="nameWithTitle" class="form-label">Name</label>
+                            <input type="text" id="nameWithTitle" class="form-control" placeholder="Enter Name"
+                                name="name" required="required" value="{{ old('name') }}" />
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col mb-0">
+                            <label for="descriptionWithTitle" class="form-label">Description</label>
+                            <textarea type="text" id="descriptionWithTitle" class="form-control" placeholder="Decription ... " name="description"
+                                required="required">{{ old('description') }}</textarea>
                         </div>
                     </div>
                 </div>

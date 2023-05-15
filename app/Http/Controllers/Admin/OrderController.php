@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Receivership;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -12,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orderList = Order::orderBy('id', 'DESC')->paginate(5);
+        return view('admin.order.index', compact('orderList'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -36,7 +39,9 @@ class OrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $item = Order::find($id);
+        $order = Order::with('orderDetails')->find($id);
+        return view('admin.order.show', compact('order', 'item'));
     }
 
     /**
@@ -44,7 +49,9 @@ class OrderController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $item = Order::find($id);
+        $order = Order::with('orderDetails')->find($id);
+        return view('admin.order.edit', compact('order', 'item'));
     }
 
     /**
@@ -52,7 +59,15 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $order = Order::find($id);
+        $order->status = $request->status;
+        $order->save();
+        if ($order) {
+            alert()->success('Order Update', 'Successfully'); // hoặc có thể dùng alert('Post Update','Successfully', 'success');
+        } else {
+            alert()->error('Order Update', 'Something went wrong!'); // hoặc có thể dùng alert('Post Created','Something went wrong!', 'error');
+        }
+        return redirect()->route('order.show',compact('order'));
     }
 
     /**

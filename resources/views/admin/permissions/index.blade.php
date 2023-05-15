@@ -24,7 +24,7 @@
                             Create Permission
                         </button>
                         {{-- modal --}}
-                        @include('admin.category.create')
+                        @include('admin.permissions.create')
                     </div>
                 </div>
             </h5>
