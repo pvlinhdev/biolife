@@ -107,6 +107,7 @@
 
     <!-- Page JS -->
     <script src="{{ asset('admin/assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ asset('admin/assets/vendor/libs/masonry/masonry.js') }}"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

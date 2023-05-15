@@ -122,6 +122,10 @@
   width: 100%;
   border-radius: 50%;
 }
+.avt img{
+  width: 100%;
+  border-radius: 50%;
+}
 .name_profile{
   text-align: center;
   background-color: #e5e8eb;
@@ -129,3 +133,12 @@
   font-weight: 700;
   border-radius: 15px;
 }
+.status {
+  background: #F5F5F9;
+  font-weight: bold;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  border-radius: 40px;
+}
+

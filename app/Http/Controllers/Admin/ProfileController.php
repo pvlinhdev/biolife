@@ -10,10 +10,10 @@ class ProfileController extends Controller
 {
     public function show($id){
         $user = User::find($id);
-        return view('admin.user.index', compact('user'));
+        return view('admin.profile.index', compact('user'));
     }
     public function index(){
-        return view('admin.user.index');
+        return view('admin.profile.index');
     }
 
     public function edit($id)
